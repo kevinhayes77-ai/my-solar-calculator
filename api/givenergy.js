@@ -1,9 +1,7 @@
-// Givenergy API connection
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   const token = process.env.GIVENERGY_API_TOKEN;
@@ -20,7 +18,7 @@ export default async function handler(req, res) {
       "https://api.givenergy.cloud/v1/communication-device",
       {
         headers: {
-      Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
           Accept: "application/json"
         }
       }
@@ -39,7 +37,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       connected: true,
       inverterCount: result.data?.length ?? 0,
-      inverter:result.data?.[0} ?? null
+      inverter: result.data?.[0] ?? null
     });
   } catch (error) {
     return res.status(502).json({
