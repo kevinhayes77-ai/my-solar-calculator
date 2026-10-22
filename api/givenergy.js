@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       "https://api.givenergy.cloud/v1/communication-device",
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+      Authorization: "Bearer " + token,
           Accept: "application/json"
         }
       }
