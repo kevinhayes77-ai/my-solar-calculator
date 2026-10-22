@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     if (!devicesResponse.ok) return res.status(502).json({ connected: false, error: 'Device lookup failed', status: devicesResponse.status });
     const devices = await devicesResponse.json();
     const device = devices.data?.[0];
-    const serial = device?.inverter?.serial_number;
+    const serial = device?.inverter?.serial_number ?? device?.serial_number;
     if (!serial) return res.status(404).json({ connected: false, error: 'No inverter serial number found' });
 
     const response = await fetch(`https://api.givenergy.cloud/v1/inverter/${encodeURIComponent(serial)}/system-data/latest`, { headers });
