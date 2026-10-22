@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      "https://api.givenergy.cloud/v1/inverter/",
+      "https://api.givenergy.cloud/v1/communication-device",
       {
         headers: {
           Authorization: `Bearer ${token}`,
