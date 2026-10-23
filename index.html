@@ -5,9 +5,9 @@ document.getElementById('liveReadings').addEventListener('click',async()=>{
  try{
   const response=await fetch('/api/givenergy?live=1',{cache:'no-store'});
   const data=await response.json();
-  if(!response.ok||!data.live){status.textContent='Live readings unavailable ('+(data.error||'request failed')+'). You can still enter figures manually.';return}
+  if(!response.ok||!data.connected){status.textContent='Live readings unavailable ('+(data.error||'request failed')+'). You can still enter figures manually.';return}
   for(const id of ['solar','house','battery']){
-   const el=document.getElementById(id);el.value=data[id];
+  const el=document.getElementById(id);el.value=({solar:data.solarGenerationKw,house:data.householdUseKw,battery:data.batteryChargePercent})[id];
    try{localStorage.setItem('solar-'+id,el.value)}catch{}
   }
   status.textContent='GivEnergy readings loaded'+(data.time?' (reading time: '+new Date(data.time).toLocaleString('en-GB')+')':'')+'. You can still adjust them.';
