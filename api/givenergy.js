@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     if (!serial) return res.status(404).json({ connected: false, error: 'No inverter serial number found' });
 
     const response = await fetch(`https://api.givenergy.cloud/v1/inverter/${encodeURIComponent(serial)}/system-data/latest`, { headers });
-    if (!response.ok) return res.status(502).json({ connected: true, error: 'Live readings request failed', status: response.status });
+   if (!response.ok) return res.status(502).json({ connected: true, error: 'Live readings request failed', status: response.status, details: await response.text() });
     const result = await response.json();
     const data = result.data ?? result;
     const power = data.power ?? {};
