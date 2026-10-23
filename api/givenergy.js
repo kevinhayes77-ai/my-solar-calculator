@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     if (!serial) return res.status(404).json({ connected: false, error: 'No inverter serial number found' });
 
     const response = await fetch(`https://api.givenergy.cloud/v1/inverter/${encodeURIComponent(serial)}/system-data/latest`, { headers });
-   if (!response.ok) return res.status(502).json({ connected: true, error: 'Live readings request failed', status: response.status, details: await response.text() });
+   if (!response.ok) return res.status(502).json({ connected: true, error: 'Live readings request failed', status: response.status, details: await response.text(), selectedSerial: serial });
     const result = await response.json();
     const data = result.data ?? result;
     const power = data.power ?? {};
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       connected: true,
       inverterCount: devices.data?.length ?? 1,
-      inverter: device,
+     inverter: device, selectedSerial: serial,
       readings: data,
       solarGenerationKw: typeof solar === 'number' ? solar / 1000 : null,
       householdUseKw: typeof consumption === 'number' ? consumption / 1000 : null,
