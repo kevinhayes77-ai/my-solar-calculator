@@ -14,4 +14,4 @@ document.getElementById('liveReadings').addEventListener('click',async()=>{
   calc();
  }catch(e){status.textContent='Could not load live readings. Manual entry still works.'}
  finally{button.disabled=false}
-});calc();if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script></body></html>
+});document.getElementById('liveReadings').click();calc();if('serviceWorker'
