@@ -18,7 +18,7 @@ export default async function handler(req, res) {
    if (!response.ok) return res.status(502).json({ connected: true, error: 'Live readings request failed', status: response.status, details: await response.text(), selectedSerial: serial });
     const result = await response.json();
     const data = result.data ?? result;
-    const power = data.power ?? {};
+    const power = data;
     const battery = data.battery ?? {};
     const solar = power.solar?.power ?? power.solar ?? null;
     const consumption = power.consumption?.power ?? power.consumption ?? null;
