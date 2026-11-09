@@ -1,5 +1,5 @@
 
-exports.handler = async function () {
+export const handler = async function () {
   const token = process.env.GIVENERGY_API_TOKEN;
 
   if (!token) {
